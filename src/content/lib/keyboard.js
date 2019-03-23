@@ -1,18 +1,11 @@
 /**
  * * Created by lee on 2019/3/22
  */
+import throttle from 'lodash.throttle';
 
 class Keyboard {
     constructor () {
-        this.handleESC = this.handleESC.bind(this);
-    }
-
-    on (fn) {
-
-    }
-
-    handleESC (e) {
-
+        this.throttleTime = 50;
     }
 
     onESC (fn) {
@@ -32,7 +25,8 @@ class Keyboard {
     }
 
     onUp (fn) {
-        window.addEventListener('keyup', function(evt) {
+        fn = throttle(fn, this.throttleTime);
+        window.addEventListener('keydown', function(evt) {
             if(evt.keyCode === 38 && evt.key === 'ArrowUp') {
                 fn(evt);
             }
@@ -40,7 +34,8 @@ class Keyboard {
     }
 
     onDown (fn) {
-        window.addEventListener('keyup', function(evt) {
+        fn = throttle(fn, this.throttleTime);
+        window.addEventListener('keydown', function(evt) {
             if(evt.keyCode === 40 && evt.key === 'ArrowDown') {
                 fn(evt);
             }
