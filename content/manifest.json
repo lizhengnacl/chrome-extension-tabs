@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Recent Tabs",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Recent Tabs",
   "icons": {
     "16": "img/icon.png",
