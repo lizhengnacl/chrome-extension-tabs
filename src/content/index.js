@@ -19,6 +19,7 @@ document.body.appendChild(mount);
 function render (list, down = true) {
     let itemList = list.map(_ => ({
         id: _.id,
+        title: _.title,
         favIconUrl: _.favIconUrl,
         url: _.url,
         active: _.active
@@ -44,6 +45,7 @@ function render (list, down = true) {
     }
     // 创建一个容器
     state.setList(itemList);
+
     renderContainer(itemList, state.getIndex());
 }
 
@@ -69,6 +71,10 @@ function renderContainer (list, index = 0) {
     list.forEach((item, i) => {
         div.appendChild(renderItem(item, i === index));
     })
+
+    if(list.length === 0) {
+        div.innerHTML = '404...';
+    }
     mount.appendChild(div);
 
     state.mount();
@@ -77,10 +83,14 @@ function renderContainer (list, index = 0) {
 function renderItem (item, selected) {
     let { id, favIconUrl, url, active } = item;
     let div = document.createElement('div');
+    let className = 'item'
     if(selected) {
-        div.style.background = 'green';
+        className += ' selected'
     }
-    div.innerHTML = `${id} | ${favIconUrl} | ${url} | ${active}`;
+    div.className = className;
+
+    div.innerHTML = `<div class="item-left"><img src="${item.favIconUrl}" alt=""></div><div class="item-right">${item.title}</div>`;
+
     div.addEventListener('click', function() {
         im.request({
             type: 'activeTab',
@@ -105,15 +115,16 @@ keyboard.onESC(function() {
 })
 
 keyboard.onEnter(function(e) {
-
-    let item = state.getItem();
-    if(item) {
-        im.request({
-            type: 'activeTab',
-            data: item.id
-        })
+    if(state.isMount()) {
+        let item = state.getItem();
+        if(item) {
+            im.request({
+                type: 'activeTab',
+                data: item.id
+            })
+        }
+        unmountRender();
     }
-    unmountRender();
 })
 
 keyboard.onUp(function(e) {
