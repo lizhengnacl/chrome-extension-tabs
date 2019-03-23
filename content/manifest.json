@@ -13,6 +13,7 @@
     "48": "img/icon.png",
     "128": "img/icon.png"
   },
+  "homepage_url": "",
   // 权限申请
   "permissions": [
     "tabs",
