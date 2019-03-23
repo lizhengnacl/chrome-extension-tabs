@@ -1,0 +1,80 @@
+import './index.scss';
+import im from './lib/im';
+import keyboard from './lib/keyboard';
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+
+const config = {
+    id: '__chrome_extension_tabs__'
+};
+
+// 创建一个挂载点
+let mount = document.createElement('div');
+mount.id = config.id;
+document.body.appendChild(mount);
+
+// 渲染视图
+
+/**
+ * 渲染列表
+ * @param list
+ */
+function render (list) {
+    let itemList = list.map(_ => ({
+        id: _.id,
+        favIconUrl: _.favIconUrl,
+        url: _.url,
+        active: _.active
+    }))
+
+    itemList = itemList.filter(item => item.url.indexOf('chrome://extensions') === -1);
+    // 创建一个容器
+    renderContaner(itemList);
+}
+
+/**
+ * 卸载列表
+ */
+function unmountRender () {
+    let mount = document.getElementById(config.id);
+    mount.innerHTML = '';
+    mount.style.display = 'none';
+}
+
+function renderContaner (list) {
+    let mount = document.getElementById(config.id);
+    let div = document.createElement('div');
+    mount.style.display = 'block';
+    list.forEach(item => {
+        div.appendChild(renderItem(item));
+    })
+    mount.appendChild(div);
+}
+
+function renderItem (item) {
+    let { id, favIconUrl, url, active } = item;
+    let div = document.createElement('div');
+    div.innerHTML = `${id} | ${favIconUrl} | ${url} | ${active}`;
+    div.addEventListener('click', function() {
+        console.log('========== lizheng11 ==========\n', id);
+        // 发送请求
+        // 激活窗口
+        im.request({
+            type: 'activeTab',
+            data: id
+        })
+        unmountRender();
+    })
+    return div;
+}
+
+im.on(function(data, sender, sendResponse) {
+    console.log('========== lizheng11 ==========\n', JSON.stringify(data.data, null, 4))
+    render(data.data);
+    sendResponse('我收到了你的消息！');
+})
+
+keyboard.onESC(function() {
+    unmountRender();
+    console.log('========== lizheng11 ==========\n', 'ESC')
+})

@@ -1,0 +1,18 @@
+/**
+ * * Created by lee on 2019/3/23
+ */
+#__chrome_extension_tabs__ {
+
+    display: none;
+    height: 500px;
+    width: 500px;
+
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: red;
+
+    z-index: 9999999999999;
+}
