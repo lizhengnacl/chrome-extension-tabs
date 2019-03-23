@@ -1,6 +1,7 @@
 import im from './lib/im';
 import keyboard from './lib/keyboard';
 import tabs from './lib/tabs';
+import recentFiles from './lib/recentFiles';
 
 // 接受来自content的请求
 
@@ -10,8 +11,7 @@ im.on(function(data, sender, sendResponse) {
             tabs.active(data.data);
             break;
     }
-    console.log('收到来自content-script的消息：');
-    console.log(data, sender, sendResponse);
+    sendResponse('');
 })
 
 keyboard.on(function(command) {
@@ -21,9 +21,16 @@ keyboard.on(function(command) {
             // 发送请求到前台
             im.request({
                 type: 'tabsList',
-                data: list
+                data: recentFiles.sort(list)
             }, function(response) {})
         })
     }
 });
 
+tabs.onActivated(function({ tabId, windowId }) {
+    recentFiles.add(tabId)
+});
+
+tabs.onRemoved(function(tabId, { windowId, isWindowClosing }) {
+    recentFiles.remove(tabId)
+});

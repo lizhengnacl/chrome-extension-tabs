@@ -28,7 +28,7 @@ function render (list, down = true) {
         if(item.active === true) {
             return false;
         }
-        // chrome 插件管理业
+        // chrome 插件管理页
         if(item.url.indexOf('chrome://extensions') > -1) {
             return false;
         }
@@ -92,14 +92,19 @@ function renderItem (item, selected) {
 }
 
 im.on(function(data, sender, sendResponse) {
-    render(data.data);
+    switch(data.type) {
+        case 'tabsList':
+            render(data.data);
+            break;
+    }
+    sendResponse('');
 })
 
 keyboard.onESC(function() {
     unmountRender();
 })
 
-keyboard.onEnter(function() {
+keyboard.onEnter(function(e) {
 
     let item = state.getItem();
     if(item) {
@@ -111,13 +116,13 @@ keyboard.onEnter(function() {
     unmountRender();
 })
 
-keyboard.onUp(function() {
+keyboard.onUp(function(e) {
     if(state.isMount()) {
         render(state.getList(), false);
     }
 })
 
-keyboard.onDown(function() {
+keyboard.onDown(function(e) {
     if(state.isMount()) {
         render(state.getList(), true);
     }
