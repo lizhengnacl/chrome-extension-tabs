@@ -17,8 +17,32 @@ class Keyboard {
 
     onESC (fn) {
         window.addEventListener('keyup', function(evt) {
-            if(evt.keyCode == 27) {
-                fn();
+            if(evt.keyCode === 27 && evt.key === 'Escape') {
+                fn(evt);
+            }
+        })
+    }
+
+    onEnter (fn) {
+        window.addEventListener('keyup', function(evt) {
+            if(evt.keyCode === 13 && evt.key === 'Enter') {
+                fn(evt);
+            }
+        })
+    }
+
+    onUp (fn) {
+        window.addEventListener('keyup', function(evt) {
+            if(evt.keyCode === 38 && evt.key === 'ArrowUp') {
+                fn(evt);
+            }
+        })
+    }
+
+    onDown (fn) {
+        window.addEventListener('keyup', function(evt) {
+            if(evt.keyCode === 40 && evt.key === 'ArrowDown') {
+                fn(evt);
             }
         })
     }

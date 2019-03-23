@@ -1,8 +1,7 @@
 import './index.scss';
 import im from './lib/im';
 import keyboard from './lib/keyboard';
-// import React from 'react';
-// import ReactDOM from 'react-dom';
+import state from './lib/state';
 
 const config = {
     id: '__chrome_extension_tabs__'
@@ -13,13 +12,11 @@ let mount = document.createElement('div');
 mount.id = config.id;
 document.body.appendChild(mount);
 
-// 渲染视图
-
 /**
  * 渲染列表
  * @param list
  */
-function render (list) {
+function render (list, down = true) {
     let itemList = list.map(_ => ({
         id: _.id,
         favIconUrl: _.favIconUrl,
@@ -27,9 +24,27 @@ function render (list) {
         active: _.active
     }))
 
-    itemList = itemList.filter(item => item.url.indexOf('chrome://extensions') === -1);
+    itemList = itemList.filter(item => {
+        if(item.active === true) {
+            return false;
+        }
+        // chrome 插件管理业
+        if(item.url.indexOf('chrome://extensions') > -1) {
+            return false;
+        }
+        return true;
+    });
+
+    if(state.isMount()) {
+        if(down) {
+            state.increaseIndex();
+        } else {
+            state.decreaseIndex();
+        }
+    }
     // 创建一个容器
-    renderContaner(itemList);
+    state.setList(itemList);
+    renderContainer(itemList, state.getIndex());
 }
 
 /**
@@ -39,26 +54,34 @@ function unmountRender () {
     let mount = document.getElementById(config.id);
     mount.innerHTML = '';
     mount.style.display = 'none';
+
+    state.unmount();
 }
 
-function renderContaner (list) {
+function renderContainer (list, index = 0) {
     let mount = document.getElementById(config.id);
+    // 先清理一下
+    mount.innerHTML = '';
+    mount.style.display = 'none';
+
     let div = document.createElement('div');
     mount.style.display = 'block';
-    list.forEach(item => {
-        div.appendChild(renderItem(item));
+    list.forEach((item, i) => {
+        div.appendChild(renderItem(item, i === index));
     })
     mount.appendChild(div);
+
+    state.mount();
 }
 
-function renderItem (item) {
+function renderItem (item, selected) {
     let { id, favIconUrl, url, active } = item;
     let div = document.createElement('div');
+    if(selected) {
+        div.style.background = 'green';
+    }
     div.innerHTML = `${id} | ${favIconUrl} | ${url} | ${active}`;
     div.addEventListener('click', function() {
-        console.log('========== lizheng11 ==========\n', id);
-        // 发送请求
-        // 激活窗口
         im.request({
             type: 'activeTab',
             data: id
@@ -69,12 +92,33 @@ function renderItem (item) {
 }
 
 im.on(function(data, sender, sendResponse) {
-    console.log('========== lizheng11 ==========\n', JSON.stringify(data.data, null, 4))
     render(data.data);
-    sendResponse('我收到了你的消息！');
 })
 
 keyboard.onESC(function() {
     unmountRender();
-    console.log('========== lizheng11 ==========\n', 'ESC')
+})
+
+keyboard.onEnter(function() {
+
+    let item = state.getItem();
+    if(item) {
+        im.request({
+            type: 'activeTab',
+            data: item.id
+        })
+    }
+    unmountRender();
+})
+
+keyboard.onUp(function() {
+    if(state.isMount()) {
+        render(state.getList(), false);
+    }
+})
+
+keyboard.onDown(function() {
+    if(state.isMount()) {
+        render(state.getList(), true);
+    }
 })
