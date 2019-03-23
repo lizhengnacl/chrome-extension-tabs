@@ -138,3 +138,13 @@ keyboard.onDown(function(e) {
         render(state.getList(), true);
     }
 })
+
+// 点击非面板区域关闭面板
+window.addEventListener('click', function(e) {
+    if(state.isMount()) {
+        let inside = document.getElementById(config.id).contains(e.target);
+        if(!inside) {
+            unmountRender();
+        }
+    }
+})

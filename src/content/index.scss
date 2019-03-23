@@ -24,6 +24,8 @@
     z-index: 9999999999999999;
     display: none;
 
+    overflow-y: auto;
+
     .item {
         display: flex;
         height: 30px;

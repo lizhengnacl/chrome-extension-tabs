@@ -8,7 +8,6 @@
     "48": "img/icon.png",
     "128": "img/icon.png"
   },
-  "homepage_url": "",
   "permissions": [
     "tabs",
     "activeTab"
