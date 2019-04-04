@@ -10,6 +10,7 @@ const config = {
 // 创建一个挂载点
 let mount = document.createElement('div');
 mount.id = config.id;
+mount.tabIndex = -1;
 document.body.appendChild(mount);
 
 /**
@@ -76,6 +77,8 @@ function renderContainer (list, index = 0) {
         div.innerHTML = '404...';
     }
     mount.appendChild(div);
+
+    mount.focus();
 
     state.mount();
 }
