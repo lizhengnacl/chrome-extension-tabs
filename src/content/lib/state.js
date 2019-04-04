@@ -1,5 +1,6 @@
 /**
  * * Created by lee on 2019/3/23
+ * 处理列表相关状态
  */
 
 class State {
@@ -7,6 +8,7 @@ class State {
         this.index = 0;
         this.list = [];
         this.rendered = false;
+        this.currentWindowId = void 0;
     }
 
     increaseIndex () {
@@ -61,6 +63,14 @@ class State {
 
     isMount () {
         return this.rendered === true;
+    }
+
+    setWindowId (id) {
+        this.currentWindowId = id;
+    }
+
+    getWindowId () {
+        return this.currentWindowId;
     }
 }
 
