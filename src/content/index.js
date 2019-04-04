@@ -23,11 +23,14 @@ function render (list, down = true) {
         title: _.title,
         favIconUrl: _.favIconUrl,
         url: _.url,
-        active: _.active
+        active: _.active,
+        windowId: _.windowId
     }))
 
+    let currentWindowId = state.getWindowId();
+
     itemList = itemList.filter(item => {
-        if(item.active === true) {
+        if(item.active === true && currentWindowId === item.windowId) {
             return false;
         }
         // chrome 插件管理页
@@ -109,6 +112,9 @@ im.on(function(data, sender, sendResponse) {
         case 'tabsList':
             render(data.data);
             break;
+        case 'currentWindow':
+            state.setWindowId(data.data.id);
+            break;
     }
     sendResponse('');
 })
@@ -124,6 +130,10 @@ keyboard.onEnter(function(e) {
             im.request({
                 type: 'activeTab',
                 data: item.id
+            })
+            im.request({
+                type: 'activeWindow',
+                data: item.windowId
             })
         }
         unmountRender();
