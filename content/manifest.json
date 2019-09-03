@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Recent Tabs",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Recent Tabs",
   "icons": {
     "16": "img/icon.png",
@@ -29,7 +29,7 @@
   "commands": {
     "toggle-recent-tabs": {
       "suggested_key": {
-        "default": "Ctrl+Shift+J"
+        "default": "Ctrl+Shift+K"
       },
       "description": "toggle recent tabs"
     }
