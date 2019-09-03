@@ -3,7 +3,7 @@
  */
 
 class Keyboard {
-    on (fn) {
+    on(fn) {
         chrome.commands.onCommand.addListener(fn);
     }
 }

@@ -4,30 +4,30 @@
  */
 
 class State {
-    constructor () {
+    constructor() {
         this.index = 0;
         this.list = [];
         this.rendered = false;
         this.currentWindowId = void 0;
     }
 
-    increaseIndex () {
+    increaseIndex() {
         let len = this.list.length;
         let i = this.index;
-        if(len > 0) {
+        if (len > 0) {
             this.index = (i + 1) % this.list.length;
         } else {
             this.index = 0;
         }
     }
 
-    decreaseIndex () {
+    decreaseIndex() {
         let len = this.list.length;
         let i = this.index;
-        if(len > 0) {
-            if(i > 0) {
+        if (len > 0) {
+            if (i > 0) {
                 this.index = (i - 1) % this.list.length;
-            } else if(i === 0) {
+            } else if (i === 0) {
                 this.index = this.list.length - 1;
             }
         } else {
@@ -35,41 +35,41 @@ class State {
         }
     }
 
-    getIndex () {
+    getIndex() {
         return this.index;
     }
 
-    getItem () {
-        return this.list[this.index]
+    getItem() {
+        return this.list[this.index];
     }
 
-    setList (list) {
+    setList(list) {
         this.list = list;
     }
 
-    getList () {
+    getList() {
         return this.list;
     }
 
-    mount () {
+    mount() {
         this.rendered = true;
     }
 
-    unmount () {
+    unmount() {
         this.list = [];
         this.index = 0;
         this.rendered = false;
     }
 
-    isMount () {
+    isMount() {
         return this.rendered === true;
     }
 
-    setWindowId (id) {
+    setWindowId(id) {
         this.currentWindowId = id;
     }
 
-    getWindowId () {
+    getWindowId() {
         return this.currentWindowId;
     }
 }

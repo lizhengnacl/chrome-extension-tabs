@@ -4,42 +4,42 @@
 import throttle from 'lodash.throttle';
 
 class Keyboard {
-    constructor () {
+    constructor() {
         this.throttleTime = 50;
     }
 
-    onESC (fn) {
+    onESC(fn) {
         window.addEventListener('keyup', function(evt) {
-            if(evt.keyCode === 27 && evt.key === 'Escape') {
+            if (evt.keyCode === 27 && evt.key === 'Escape') {
                 fn(evt);
             }
-        })
+        });
     }
 
-    onEnter (fn) {
+    onEnter(fn) {
         window.addEventListener('keyup', function(evt) {
-            if(evt.keyCode === 13 && evt.key === 'Enter') {
+            if (evt.keyCode === 13 && evt.key === 'Enter') {
                 fn(evt);
             }
-        })
+        });
     }
 
-    onUp (fn) {
+    onUp(fn) {
         fn = throttle(fn, this.throttleTime);
         window.addEventListener('keydown', function(evt) {
-            if(evt.keyCode === 38 && evt.key === 'ArrowUp') {
+            if (evt.keyCode === 38 && evt.key === 'ArrowUp') {
                 fn(evt);
             }
-        })
+        });
     }
 
-    onDown (fn) {
+    onDown(fn) {
         fn = throttle(fn, this.throttleTime);
         window.addEventListener('keydown', function(evt) {
-            if(evt.keyCode === 40 && evt.key === 'ArrowDown') {
+            if (evt.keyCode === 40 && evt.key === 'ArrowDown') {
                 fn(evt);
             }
-        })
+        });
     }
 }
 

@@ -4,11 +4,11 @@
 const foo = () => {};
 
 class IM {
-    on (fn) {
+    on(fn) {
         chrome.runtime.onMessage.addListener(fn);
     }
 
-    request (data, fn = foo) {
+    request(data, fn = foo) {
         chrome.runtime.sendMessage(data, fn);
     }
 }

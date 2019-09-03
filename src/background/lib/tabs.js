@@ -5,7 +5,7 @@
 const foo = () => {};
 
 class Tabs {
-    list (params = {}) {
+    list(params = {}) {
         return new Promise((resolve, reject) => {
             chrome.tabs.query(params, function(tabs) {
                 resolve(tabs);
@@ -13,20 +13,21 @@ class Tabs {
         });
     }
 
-    active (id, fn = foo) {
-        chrome.tabs.update(id, { active: true }, fn);
+    active(id, fn = foo) {
+        chrome.tabs.update(id, {active: true}, fn);
     }
 
-    onActivated (fn) {
-        chrome.tabs.onActivated.addListener(function({ tabId, windowId }) {
-            fn({ tabId, windowId });
-        })
+    onActivated(fn) {
+        chrome.tabs.onActivated.addListener(function({tabId, windowId}) {
+            fn({tabId, windowId});
+        });
     }
 
-    onRemoved (fn) {
-        chrome.tabs.onRemoved.addListener(function(tabId, { windowId, isWindowClosing }) {
-            fn(tabId, { windowId, isWindowClosing });
-        })
+    onRemoved(fn) {
+        chrome.tabs.onRemoved.addListener(
+            function(tabId, {windowId, isWindowClosing}) {
+                fn(tabId, {windowId, isWindowClosing});
+            });
     }
 }
 

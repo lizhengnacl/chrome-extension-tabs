@@ -24,17 +24,17 @@ let config = {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
-                    loader: 'babel-loader'
-                }
+                    loader: 'babel-loader',
+                },
             },
             {
                 test: /\.scss$/,
                 use: [
-                    "style-loader", // 将 JS 字符串生成为 style 节点
-                    "css-loader", // 将 CSS 转化成 CommonJS 模块
-                    "sass-loader" // 将 Sass 编译成 CSS，默认使用 Node Sass
-                ]
-            }
+                    'style-loader', // 将 JS 字符串生成为 style 节点
+                    'css-loader', // 将 CSS 转化成 CommonJS 模块
+                    'sass-loader', // 将 Sass 编译成 CSS，默认使用 Node Sass
+                ],
+            },
         ],
     },
     plugins: [
@@ -50,22 +50,22 @@ let config = {
     //     hot: true
     // },
 
-    watch: true
-}
+    watch: true,
+};
 
 let configArr = [];
 
 // background.js
 configArr.push(Object.assign({}, config, {
     entry: {
-        background: './src/background/index.js'
-    }
+        background: './src/background/index.js',
+    },
 }));
 
 // content-script.js
 configArr.push(Object.assign({}, config, {
     entry: {
-        'content-script': './src/content/index.js'
-    }
+        'content-script': './src/content/index.js',
+    },
 }));
 module.exports = configArr;

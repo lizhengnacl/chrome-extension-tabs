@@ -3,14 +3,14 @@
  */
 
 class RecentFiles {
-    constructor () {
+    constructor() {
         this.list = [];
     }
 
-    add (id) {
+    add(id) {
         let index = this.list.indexOf(id);
         // 如果不存在，直接放在首位
-        if(index === -1) {
+        if (index === -1) {
             this.list.unshift(id);
         } else {
             // 如果存在，提升到首位
@@ -19,24 +19,24 @@ class RecentFiles {
         }
     }
 
-    remove (id) {
+    remove(id) {
         let index = this.list.indexOf(id);
-        if(index !== -1) {
+        if (index !== -1) {
             this.list.splice(index, 1);
         }
     }
 
-    getList (list, fn) {
+    getList(list, fn) {
         return this.list;
     }
 
     // 根据list排序arr
-    sort (arr) {
+    sort(arr) {
         // 分组
         let include = [];
         let rest = [];
         arr.forEach(item => {
-            if(this.list.indexOf(item.id) > -1) {
+            if (this.list.indexOf(item.id) > -1) {
                 include.push(item);
             } else {
                 rest.push(item);
@@ -47,18 +47,18 @@ class RecentFiles {
         let sorted = [];
         this.list.forEach(id => {
             let item = findItem(include, id);
-            if(item !== null) {
+            if (item !== null) {
                 sorted.push(item);
             }
-        })
+        });
         return sorted.concat(rest);
     }
 }
 
-function findItem (list, id) {
+function findItem(list, id) {
     let res = null;
     list.forEach((item) => {
-        if(item.id === id) {
+        if (item.id === id) {
             res = item;
         }
     });

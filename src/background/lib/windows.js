@@ -6,14 +6,14 @@ const foo = () => {};
 
 class Windows {
 
-    active (windowId, fn = foo) {
-        chrome.windows.update(windowId, { focused: true }, fn)
+    active(windowId, fn = foo) {
+        chrome.windows.update(windowId, {focused: true}, fn);
     }
 
-    getCurrent (fn = foo) {
+    getCurrent(fn = foo) {
         chrome.windows.getCurrent(function(window) {
             fn(window);
-        })
+        });
     }
 }
 
