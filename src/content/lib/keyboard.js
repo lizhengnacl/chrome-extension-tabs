@@ -27,7 +27,13 @@ class Keyboard {
     onUp(fn) {
         fn = throttle(fn, this.throttleTime);
         window.addEventListener('keydown', function(evt) {
+            // 方向键
             if (evt.keyCode === 38 && evt.key === 'ArrowUp') {
+                fn(evt);
+            }
+
+            // JK
+            if (evt.keyCode === 75 && evt.key === 'k') {
                 fn(evt);
             }
         });
@@ -37,6 +43,10 @@ class Keyboard {
         fn = throttle(fn, this.throttleTime);
         window.addEventListener('keydown', function(evt) {
             if (evt.keyCode === 40 && evt.key === 'ArrowDown') {
+                fn(evt);
+            }
+
+            if (evt.keyCode === 74 && evt.key === 'j') {
                 fn(evt);
             }
         });
