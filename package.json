@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --config webpack.config.js",
     "server": "node server.js",
     "build": "webpack --config webpack.config.js",
-    "build:watch": "webpack --config webpack.config.js --watch",
+    "build:watch": "dev=test webpack --config webpack.config.js --watch",
     "build:server": "webpack-dev-server --config webpack.config.js"
   },
   "keywords": [],

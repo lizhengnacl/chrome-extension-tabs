@@ -3,9 +3,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const dev = process.env.dev;
 
 let config = {
-    mode: 'production',
+    mode: dev !== 'test' ? 'production' : 'development',
     // entry: {
     //     background: './src/background/background.js'
     // },
@@ -52,6 +53,10 @@ let config = {
 
     watch: true,
 };
+
+if (dev === 'test') {
+    config.devtool = 'cheap-module-source-map';
+}
 
 let configArr = [];
 

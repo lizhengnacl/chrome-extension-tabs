@@ -20,7 +20,7 @@ im.on(function(data, sender, sendResponse) {
 
 keyboard.on(function(command) {
     // 配合manifest中的commands
-    if (command === 'save') {
+    if (command === 'toggle-recent-tabs') {
         win.getCurrent(function(window) {
             im.request({
                 type: 'currentWindow',
