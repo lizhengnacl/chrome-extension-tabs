@@ -15,3 +15,6 @@ Chrome Extension
 
 
 .
+
+注意：
+- 由于 `chrome.google.com` 域 以及 `chrome:extension` 等设置页 中不允许注入代码，`Recent tabs` 功能在此类页面下失效

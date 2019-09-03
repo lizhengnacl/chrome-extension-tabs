@@ -3,6 +3,7 @@ import keyboard from './lib/keyboard';
 import tabs from './lib/tabs';
 import win from './lib/windows';
 import recentFiles from './lib/recentFiles';
+import go from './lib/go';
 
 // 接受来自content的请求
 
@@ -35,6 +36,14 @@ keyboard.on(function(command) {
                 data: recentFiles.sort(list),
             }, function(response) {});
         });
+    }
+
+    if (command === 'to-left') {
+        go(-1);
+    }
+
+    if (command === 'to-right') {
+        go(1);
     }
 });
 
